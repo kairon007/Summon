@@ -12,6 +12,7 @@ import fr.neamar.summon.dataprovider.Provider;
 import fr.neamar.summon.dataprovider.SearchProvider;
 import fr.neamar.summon.dataprovider.SettingProvider;
 import fr.neamar.summon.dataprovider.ToggleProvider;
+import fr.neamar.summon.holder.FavoriteHolder;
 import fr.neamar.summon.holder.Holder;
 import fr.neamar.summon.holder.HolderComparator;
 
@@ -120,6 +121,9 @@ public class DataHandler {
 				ids.add(id);
 		}
 
+		//Add favorites
+		history.add(new FavoriteHolder());
+		
 		// Find associated items
 		for (int i = 0; i < ids.size(); i++) {
 

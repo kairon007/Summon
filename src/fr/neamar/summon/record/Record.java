@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import fr.neamar.summon.holder.AppHolder;
 import fr.neamar.summon.holder.ContactHolder;
+import fr.neamar.summon.holder.FavoriteHolder;
 import fr.neamar.summon.holder.Holder;
 import fr.neamar.summon.holder.SearchHolder;
 import fr.neamar.summon.holder.SettingHolder;
@@ -112,6 +113,8 @@ public abstract class Record {
 			return new SettingRecord((SettingHolder) holder);
 		else if (holder instanceof ToggleHolder)
 			return new ToggleRecord((ToggleHolder) holder);
+		else if(holder instanceof FavoriteHolder)
+			return new FavoriteRecord((FavoriteHolder) holder);
 
 		Log.e("log", "Unable to create record for specified holder.");
 		return null;
