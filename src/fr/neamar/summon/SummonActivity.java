@@ -193,23 +193,22 @@ public class SummonActivity extends Activity {
 				if (workingOnQuery != currentQuery)
 					return;
 
-				if (holders == null) {
-					// First use of the app. TODO : Display something useful.
-				} else {
-					runOnUiThread(new Runnable() {
+				runOnUiThread(new Runnable() {
 
-						@Override
-						public void run() {
-							adapter.clear();
+					@Override
+					public void run() {
+						adapter.clear();
+
+						if (holders != null) {
 							for (int i = Math.min(MAX_RECORDS, holders.size()) - 1; i >= 0; i--) {
 								adapter.add(Record.fromHolder(holders.get(i)));
 							}
-							// Reset scrolling to top
-							listView.setSelectionAfterHeaderView();
 						}
-					});
+						// Reset scrolling to top
+						listView.setSelectionAfterHeaderView();
+					}
+				});
 
-				}
 			}
 		});
 		resultThread.start();
