@@ -6,28 +6,28 @@
     android:orientation="horizontal" >
 
     <ImageButton
-        android:id="@+id/favorites0"
+        android:id="@+id/item_favorites_favorites0"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="1"
         android:src="@drawable/favorites_add" />
 
     <ImageButton
-        android:id="@+id/favorites1"
+        android:id="@+id/item_favorites_favorites1"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="1"
         android:src="@drawable/favorites_add" />
 
     <ImageButton
-        android:id="@+id/favorites2"
+        android:id="@+id/item_favorites_favorites2"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="1"
         android:src="@drawable/favorites_add" />
 
     <ImageButton
-        android:id="@+id/favorites3"
+        android:id="@+id/item_favorites_favorites3"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="1"
