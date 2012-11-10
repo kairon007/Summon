@@ -31,4 +31,14 @@
         android:text="Contact name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <LinearLayout
+        android:id="@+id/item_contact_phones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_contact_name"
+        android:layout_below="@+id/item_contact_name"
+        android:orientation="vertical" >
+
+    </LinearLayout>
+
 </RelativeLayout>

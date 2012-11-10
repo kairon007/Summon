@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import fr.neamar.summon.QueryInterface;
 import fr.neamar.summon.R;
@@ -34,10 +35,19 @@ public class ContactRecord extends Record {
 				.findViewById(R.id.item_contact_name);
 		contactName.setText(enrichText(contactHolder.displayName));
 
-		// Contact phone
-		//TextView contactPhone = (TextView) v
-		//		.findViewById(R.id.item_contact_phone);
-		//contactPhone.setText(contactHolder.phone);
+		// Contact phones
+		LinearLayout contactPhones = (LinearLayout) v.findViewById(R.id.item_contact_phones);
+		
+		contactPhones.removeAllViews();
+		for(int i = 0; i < contactHolder.phones.size(); i++)
+		{
+			View sub_v = inflateFromId(context, R.layout.item_contact_phone);
+			TextView contactPhone = (TextView) sub_v
+					.findViewById(R.id.item_contact_phone);
+			contactPhone.setText(contactHolder.phones.get(i));
+			
+			contactPhones.addView(sub_v);
+		}
 
 		// Contact photo
 		ImprovedQuickContactBadge contactIcon = (ImprovedQuickContactBadge) v
