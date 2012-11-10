@@ -35,9 +35,9 @@ public class ContactRecord extends Record {
 		contactName.setText(enrichText(contactHolder.displayName));
 
 		// Contact phone
-		TextView contactPhone = (TextView) v
-				.findViewById(R.id.item_contact_phone);
-		contactPhone.setText(contactHolder.phone);
+		//TextView contactPhone = (TextView) v
+		//		.findViewById(R.id.item_contact_phone);
+		//contactPhone.setText(contactHolder.phone);
 
 		// Contact photo
 		ImprovedQuickContactBadge contactIcon = (ImprovedQuickContactBadge) v
@@ -58,7 +58,7 @@ public class ContactRecord extends Record {
 				queryInterface.launchOccured();
 			}
 		});
-
+/*
 		// Phone action
 		ImageButton phoneButton = (ImageButton) v
 				.findViewById(R.id.item_contact_action_phone);
@@ -99,7 +99,7 @@ public class ContactRecord extends Record {
 			messageButton.setVisibility(View.INVISIBLE);
 		else
 			messageButton.setVisibility(View.VISIBLE);
-
+*/
 		return v;
 	}
 

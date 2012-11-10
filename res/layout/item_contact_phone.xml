@@ -23,12 +23,38 @@
         android:id="@+id/item_contact_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/item_contact_icon"
+        android:layout_toLeftOf="@+id/item_contact_action_message"
         android:layout_toRightOf="@+id/item_contact_icon"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Contact name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/item_contact_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_contact_icon"
+        android:layout_alignLeft="@+id/item_contact_name"
+        android:text="+330 12 34 56 78" />
+
+    <ImageButton
+        android:id="@+id/item_contact_action_message"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/item_contact_action_phone"
+        android:contentDescription="@string/ui_item_contact_hint_message"
+        android:src="@drawable/contact_message" />
+
+    <ImageButton
+        android:id="@+id/item_contact_action_phone"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/ui_item_contact_hint_call"
+        android:src="@drawable/contact_call" />
 
 </RelativeLayout>

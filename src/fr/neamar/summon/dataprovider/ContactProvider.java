@@ -30,50 +30,57 @@ public class ContactProvider extends Provider {
 				// Prevent duplicates by keeping in memory encountered phones.
 				// The string key is "phone" + "|" + "name" (so if two contacts with
 				// distincts name share same number, they both get displayed
-				HashMap<String, Boolean> phones = new HashMap<String, Boolean>();
+				HashMap<String, ContactHolder> mapContacts = new HashMap<String, ContactHolder>();
 
 				if (cur.getCount() > 0) {
 					while (cur.moveToNext()) {
-						ContactHolder contact = new ContactHolder();
-
-						contact.lookupKey = cur
+						String lookupKey = cur
 								.getString(cur
 										.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-						contact.id = holderScheme + contact.lookupKey;
-						contact.timesContacted = Integer
-								.parseInt(cur.getString(cur
-										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TIMES_CONTACTED)));
-						contact.name = cur
-								.getString(cur
-										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-						contact.phone = cur
-								.getString(cur
-										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-						contact.homeNumber = contact.phone.matches("^(\\+33|0)[1-5].*");
-						contact.starred = cur
-								.getInt(cur
-										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.STARRED)) != 0;
-						String photoId = cur
-								.getString(cur
-										.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-						if (photoId != null) {
-							contact.icon = ContentUris.withAppendedId(
-									ContactsContract.Data.CONTENT_URI,
-									Long.parseLong(photoId));
-						}
-
-						if (!phones.containsKey(contact.phone + '|' + contact.name)
-								&& contact.name != null) {
+						
+						//Do we already have an holder for this contact ?
+						ContactHolder contact;
+						if(mapContacts.containsKey(lookupKey))
+							contact = mapContacts.get(lookupKey);
+						else
+						{
+							//If not, we need to build a new one
+							contact = new ContactHolder();
+							contact.lookupKey = lookupKey;
+							contact.id = holderScheme + contact.lookupKey;
+							contact.timesContacted = Integer
+									.parseInt(cur.getString(cur
+											.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TIMES_CONTACTED)));
+							contact.name = cur
+									.getString(cur
+											.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+							contact.starred = cur
+									.getInt(cur
+											.getColumnIndex(ContactsContract.CommonDataKinds.Phone.STARRED)) != 0;
+							String photoId = cur
+									.getString(cur
+											.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
+							if (photoId != null)
+								contact.icon = ContentUris.withAppendedId(
+										ContactsContract.Data.CONTENT_URI,
+										Long.parseLong(photoId));
+							
 							contact.nameLowerCased = contact.name.toLowerCase()
 									.replaceAll("[èéêë]", "e")
 									.replaceAll("[ûù]", "u")
 									.replaceAll("[ïî]", "i")
 									.replaceAll("[àâ]", "a").replaceAll("ô", "o")
 									.replaceAll("[ÈÉÊË]", "E");
+							
 							contacts.add(contact);
-
-							phones.put(contact.phone + '|' + contact.name, true);
+							mapContacts.put(lookupKey, contact);
 						}
+						
+						//Add phone number
+						contact.phones.add(cur
+								.getString(cur
+										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+						//contact.homeNumber = contact.phone.matches("^(\\+33|0)[1-5].*");
 					}
 				}
 				cur.close();
@@ -110,8 +117,8 @@ public class ContactProvider extends Provider {
 				if (contact.starred)
 					relevance += 30;
 				// Decrease for home numbers:
-				if (contact.homeNumber)
-					relevance -= 1;
+				//if (contact.homeNumber)
+					//relevance -= 1;
 
 				contact.displayName = contacts.get(i).name.replaceFirst("(?i)("
 						+ Pattern.quote(query) + ")", "{$1}");
